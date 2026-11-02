@@ -1,0 +1,797 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Học Tập</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap"
+      rel="stylesheet">
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --green: #d7ff9a;
+    --red: #d00000;
+    --gold: #ffdf4e;
+    --cream: #fff0b0;
+    --orange: #ffb16c;
+    --brown: #7d321b;
+}
+
+html, body {
+    margin: 0;
+    min-height: 100%;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: var(--green);
+}
+
+.page {
+    position: relative;
+    isolation: isolate;
+    min-height: 100vh;
+    overflow: hidden;
+    padding: 0 3.35% 30px;
+    background:
+        radial-gradient(ellipse at 0% 100%,
+            #a7cd7b 0%, transparent 35%),
+        radial-gradient(ellipse at 100% 100%,
+            #b6d981 0%, transparent 35%),
+        #d7ff9a;
+}
+
+/* ================= NỀN MINH HỌA ================= */
+
+.scenery {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    pointer-events: none;
+}
+
+/* CÀNH LIỄU BÊN TRÁI */
+
+.willow {
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    width: clamp(150px, 19vw, 300px);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* CÀNH CÂY BÊN PHẢI */
+
+.branch {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    width: clamp(120px, 15vw, 235px);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* MÂY TRANG TRÍ */
+
+.cloud {
+    position: absolute;
+    z-index: -1;
+    width: clamp(150px, 21vw, 320px);
+    opacity: .95;
+    pointer-events: none;
+}
+
+.cloud-1 {
+    top: 13%;
+    left: 18%;
+}
+
+.cloud-2 {
+    top: 26%;
+    left: 8%;
+    width: clamp(150px, 17vw, 250px);
+}
+
+.cloud-3 {
+    top: 26%;
+    left: 57%;
+    width: clamp(150px, 17vw, 250px);
+}
+
+.cloud-4 {
+    top: 23%;
+    right: -25px;
+}
+
+.cloud-5 {
+    top: 49%;
+    left: 38%;
+    width: clamp(160px, 20vw, 270px);
+}
+
+.cloud-6 {
+    bottom: 1%;
+    left: 0;
+}
+
+.cloud-7 {
+    bottom: 5%;
+    right: 2%;
+}
+
+/* ================= TIÊU ĐỀ ================= */
+
+.header {
+    position: relative;
+    height: clamp(280px, 20.6vw, 340px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0;
+}
+
+.book {
+    position: absolute;
+    width: clamp(220px, 26vw, 400px);
+    left: 50%;
+    top: 53%;
+    transform: translate(-50%, -42%) rotate(3deg);
+    z-index: -1;
+}
+
+.title {
+    margin: 0;
+    position: relative;
+    text-align: center;
+    white-space: nowrap;
+    font-family: "Lobster", "Brush Script MT", cursive;
+    font-size: clamp(78px, 10vw, 155px);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: 1px;
+    color: var(--orange);
+    -webkit-text-stroke: 2px var(--brown);
+    paint-order: stroke fill;
+    text-shadow:
+        2px 3px 0 var(--brown),
+        4px 5px 0 rgba(100, 40, 15, .15);
+}
+
+/* ================= THANH MENU ================= */
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(35px, 3.05vw, 50px);
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.menu-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr) 120px;
+    align-items: center;
+    min-height: clamp(115px, 8.2vw, 145px);
+    padding: 8px 25px;
+    overflow: hidden;
+
+    color: #fff;
+    background: var(--red);
+    border: 2px solid var(--gold);
+    text-decoration: none;
+
+    box-shadow:
+        inset 0 0 0 2px var(--red),
+        inset 0 0 0 4px #f6c82e;
+
+    transition:
+        filter .2s ease,
+        box-shadow .2s ease;
+}
+
+/* HOA VĂN GÓC */
+
+.corner {
+    position: absolute;
+    width: 23px;
+    height: 23px;
+    pointer-events: none;
+}
+
+.corner::before,
+.corner::after {
+    content: "";
+    position: absolute;
+    border: 1px solid var(--gold);
+}
+
+.corner::before {
+    inset: 0;
+}
+
+.corner::after {
+    inset: 5px;
+}
+
+.corner span {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border: 1px solid var(--gold);
+}
+
+.tl {
+    top: 3px;
+    left: 3px;
+}
+
+.tr {
+    top: 3px;
+    right: 3px;
+}
+
+.bl {
+    bottom: 3px;
+    left: 3px;
+}
+
+.br {
+    bottom: 3px;
+    right: 3px;
+}
+
+.tl::before { border-width: 2px 0 0 2px; }
+.tr::before { border-width: 2px 2px 0 0; }
+.bl::before { border-width: 0 0 2px 2px; }
+.br::before { border-width: 0 2px 2px 0; }
+
+/* HÌNH TRÒN MÀU KEM */
+
+.circle {
+    justify-self: center;
+    display: grid;
+    place-items: center;
+    width: clamp(65px, 5.1vw, 83px);
+    height: clamp(65px, 5.1vw, 83px);
+    border-radius: 50%;
+    background: var(--cream);
+}
+
+.circle svg {
+    width: 76%;
+    height: 76%;
+}
+
+/* TÊN DANH MỤC */
+
+.label {
+    text-align: center;
+    font-size: clamp(30px, 3.5vw, 58px);
+    font-weight: bold;
+    line-height: 1.15;
+}
+
+/* NÚT TẢI XUỐNG */
+
+.download {
+    justify-self: center;
+    display: grid;
+    place-items: center;
+    width: clamp(60px, 5vw, 82px);
+    height: clamp(60px, 5vw, 82px);
+    color: white;
+    border-radius: 7px;
+    transition:
+        transform .2s ease,
+        background .2s ease;
+}
+
+.download svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+}
+
+.menu-item:hover {
+    filter: brightness(1.1);
+    box-shadow:
+        inset 0 0 0 2px var(--red),
+        inset 0 0 0 4px var(--gold),
+        0 5px 14px rgba(100, 30, 0, .15);
+}
+
+.menu-item:hover .download {
+    background: rgba(255, 255, 255, .14);
+    transform: translateY(-2px);
+}
+
+.menu-item:active .download {
+    transform: scale(.88);
+}
+
+.menu-item:focus-visible {
+    outline: 3px solid var(--brown);
+    outline-offset: 3px;
+}
+
+.note {
+    text-align: center;
+    color: #42652b;
+    font-size: 12px;
+    margin-top: 28px;
+}
+
+/* ================= ĐIỆN THOẠI ================= */
+
+@media (max-width: 600px) {
+    .page {
+        padding: 0 4% 25px;
+    }
+
+    .header {
+        height: 225px;
+    }
+
+    .title {
+        font-size: clamp(52px, 11vw, 75px);
+        letter-spacing: 0;
+        -webkit-text-stroke: 1.4px var(--brown);
+    }
+
+    .book {
+        width: 200px;
+    }
+
+    .menu {
+        gap: 24px;
+    }
+
+    .menu-item {
+        grid-template-columns: 54px minmax(0, 1fr) 48px;
+        min-height: 90px;
+        padding: 5px 8px;
+    }
+
+    .circle {
+        width: 46px;
+        height: 46px;
+    }
+
+    .label {
+        font-size: clamp(21px, 5vw, 31px);
+    }
+
+    .download {
+        width: 43px;
+        height: 43px;
+    }
+
+    .willow {
+        width: 125px;
+    }
+
+    .branch {
+        width: 105px;
+    }
+
+    .cloud-4 {
+        width: 180px;
+    }
+
+    .cloud-6,
+    .cloud-7 {
+        width: 180px;
+    }
+}
+</style>
+</head>
+
+<body>
+<main class="page">
+
+<!-- PHONG CẢNH NÚI VÀ NỀN -->
+<svg class="scenery" viewBox="0 0 1649 1000"
+     preserveAspectRatio="none"
+     xmlns="http://www.w3.org/2000/svg">
+
+    <defs>
+        <linearGradient id="mountain" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#d9c9a9"/>
+            <stop offset="1" stop-color="#b9a98c"/>
+        </linearGradient>
+
+        <pattern id="mountainLines"
+                 width="24" height="18"
+                 patternUnits="userSpaceOnUse">
+            <path d="M0 14 Q8 5 18 12 T30 8"
+                  fill="none" stroke="#8f856f"
+                  stroke-width=".7" opacity=".4"/>
+        </pattern>
+    </defs>
+
+    <path d="M0 820 Q160 720 300 790
+             Q420 690 560 760
+             Q730 835 870 780
+             Q1050 690 1190 755
+             Q1400 680 1649 760
+             V1000 H0Z"
+          fill="#b9d982"/>
+
+    <path d="M0 1000 V850
+             Q120 820 190 710
+             Q250 640 325 690
+             Q385 730 450 820
+             L560 1000Z"
+          fill="url(#mountain)"/>
+
+    <path d="M0 1000 V850
+             Q120 820 190 710
+             Q250 640 325 690
+             Q385 730 450 820
+             L560 1000Z"
+          fill="url(#mountainLines)"/>
+
+    <path d="M1050 1000
+             L1120 850
+             Q1180 770 1250 810
+             Q1320 740 1390 790
+             Q1480 715 1550 770
+             L1649 820 V1000Z"
+          fill="url(#mountain)"/>
+
+    <path d="M1050 1000
+             L1120 850
+             Q1180 770 1250 810
+             Q1320 740 1390 790
+             Q1480 715 1550 770
+             L1649 820 V1000Z"
+          fill="url(#mountainLines)"/>
+</svg>
+
+<!-- CÀNH LIỄU -->
+<svg class="willow" viewBox="0 0 240 290"
+     xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" stroke-linecap="round">
+        <path d="M8 -10 Q55 28 53 90 T75 270"
+              stroke="#66858a" stroke-width="5"/>
+        <path d="M42 -5 Q95 38 88 105 T112 255"
+              stroke="#779ba0" stroke-width="3"/>
+        <path d="M80 -5 Q127 40 137 115 T160 250"
+              stroke="#66858a" stroke-width="3"/>
+        <path d="M0 24 Q55 70 125 5"
+              stroke="#66858a" stroke-width="4"/>
+
+        <path d="M42 50 Q12 80 25 112
+                 M52 85 Q78 110 65 145
+                 M84 65 Q53 100 65 130
+                 M91 105 Q117 128 107 156
+                 M130 77 Q153 100 144 132
+                 M142 118 Q172 140 162 176
+                 M73 151 Q45 181 59 210
+                 M92 181 Q113 206 105 238"
+              stroke="#789fa8" stroke-width="2"/>
+
+        <path d="M45 62 Q38 96 50 124
+                 M79 98 Q70 128 81 156
+                 M120 113 Q107 142 123 168
+                 M151 152 Q139 179 150 204"
+              stroke="#a1c5c8" stroke-width="1.5"/>
+    </g>
+</svg>
+
+<!-- CÀNH CÂY GÓC PHẢI -->
+<svg class="branch" viewBox="0 0 240 220"
+     xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" stroke="#584a2d" stroke-linecap="round">
+        <path d="M245 -5 Q210 32 177 62
+                 T105 120 T42 190"
+              stroke-width="8"/>
+        <path d="M191 48 L183 12
+                 M191 48 L223 28
+                 M164 72 L147 35
+                 M164 72 L200 82
+                 M130 96 L120 61
+                 M130 96 L159 109
+                 M95 124 L73 100
+                 M95 124 L107 150"
+              stroke-width="4"/>
+    </g>
+
+    <g fill="#786746">
+        <ellipse cx="184" cy="15" rx="5" ry="13"/>
+        <ellipse cx="218" cy="29" rx="5" ry="13"
+                 transform="rotate(55 218 29)"/>
+        <ellipse cx="148" cy="39" rx="5" ry="12"/>
+        <ellipse cx="195" cy="82" rx="5" ry="13"
+                 transform="rotate(65 195 82)"/>
+        <ellipse cx="120" cy="62" rx="5" ry="12"/>
+        <ellipse cx="157" cy="108" rx="5" ry="13"
+                 transform="rotate(65 157 108)"/>
+        <ellipse cx="73" cy="100" rx="5" ry="12"
+                 transform="rotate(-35 73 100)"/>
+    </g>
+</svg>
+
+<!-- HÀM VẼ MÂY BẰNG SYMBOL SVG -->
+<svg xmlns="http://www.w3.org/2000/svg"
+     style="position:absolute;width:0;height:0;overflow:hidden">
+
+    <symbol id="cloud-shape" viewBox="0 0 300 130">
+        <path d="M5 100 Q35 92 48 75
+                 Q29 55 52 38
+                 Q72 15 90 41
+                 Q107 8 132 29
+                 Q155 4 176 33
+                 Q206 18 224 46
+                 Q259 28 282 64
+                 Q300 88 272 101
+                 Q215 119 160 103
+                 Q70 123 5 100Z"
+              fill="#a6c7ec" stroke="#fff0d2"
+              stroke-width="3"/>
+
+        <g fill="none" stroke="#fff3d9" stroke-width="2">
+            <path d="M56 66 Q40 48 60 43
+                     Q79 43 74 59 Q71 69 61 62"/>
+            <path d="M104 55 Q90 34 110 32
+                     Q128 34 124 49"/>
+            <path d="M151 63 Q137 43 157 41
+                     Q175 43 171 57"/>
+            <path d="M202 66 Q187 47 207 45
+                     Q224 47 219 60"/>
+            <path d="M246 81 Q260 66 270 81"/>
+        </g>
+    </symbol>
+</svg>
+
+<svg class="cloud cloud-1" viewBox="0 0 300 130"
+     xmlns="http://www.w3.org/2000/svg">
+    <use href="#cloud-shape"/>
+</svg>
+
+<svg class="cloud cloud-2" viewBox="0 0 300 130"
+     xmlns="http://www.w3.org/2000/svg">
+    <use href="#cloud-shape"/>
+</svg>
+
+<svg class="cloud cloud-3" viewBox="0 0 300 130"
+     xmlns="http://www.w3.org/2000/svg">
+    <use href="#cloud-shape"/>
+</svg>
+
+<svg class="cloud cloud-4" viewBox="0 0 300 130"
+     xmlns="http://www.w3.org/2000/svg">
+    <use href="#cloud-shape"/>
+</svg>
+
+<svg class="cloud cloud-5" viewBox="0 0 300 130"
+     xmlns="http://www.w3.org/2000/svg">
+    <use href="#cloud-shape"/>
+</svg>
+
+<svg class="cloud cloud-6" viewBox="0 0 300 130"
+     xmlns="http://www.w3.org/2000/svg">
+    <use href="#cloud-shape"/>
+</svg>
+
+<svg class="cloud cloud-7" viewBox="0 0 300 130"
+     xmlns="http://www.w3.org/2000/svg">
+    <use href="#cloud-shape"/>
+</svg>
+
+<!-- TIÊU ĐỀ VÀ SÁCH MỞ -->
+<header class="header">
+
+    <svg class="book" viewBox="0 0 300 190"
+         xmlns="http://www.w3.org/2000/svg">
+
+        <path d="M20 15 Q77 -1 146 48
+                 L150 172 Q83 126 28 141Z"
+              fill="#fff0d1" stroke="#a27655"
+              stroke-width="2.5"/>
+
+        <path d="M146 48 Q209 4 278 15
+                 L275 140 Q209 124 150 172Z"
+              fill="#ffebc6" stroke="#a27655"
+              stroke-width="2.5"/>
+
+        <path d="M146 48 L150 172"
+              stroke="#7b4a34" stroke-width="4"/>
+
+        <g stroke="#c1a181" stroke-width="1.6"
+           fill="none">
+            <path d="M38 35 Q87 32 132 61"/>
+            <path d="M40 54 Q88 51 133 80"/>
+            <path d="M41 73 Q88 70 134 99"/>
+            <path d="M42 92 Q89 89 135 118"/>
+            <path d="M164 61 Q218 29 258 32"/>
+            <path d="M164 81 Q218 49 257 52"/>
+            <path d="M164 101 Q218 69 257 72"/>
+            <path d="M164 121 Q218 89 257 92"/>
+        </g>
+    </svg>
+
+    <h1 class="title">HỌC TẬP</h1>
+</header>
+
+<!-- DANH MỤC HỌC TẬP -->
+<nav class="menu" aria-label="Danh mục học tập">
+
+    <!-- GIÁO TRÌNH -->
+    <a class="menu-item"
+       href="https://drive.google.com/drive/folders/1GI6hGvFN0hYMsCwiOKYKeqoyaADtn326?usp=drive_link"
+       target="_blank" rel="noopener noreferrer"
+       aria-label="Mở Giáo Trình trên Google Drive">
+
+        <span class="corner tl"></span>
+        <span class="corner tr"></span>
+        <span class="corner bl"></span>
+        <span class="corner br"></span>
+
+        <span class="circle">
+            <svg viewBox="0 0 64 64"
+                 xmlns="http://www.w3.org/2000/svg"
+                 fill="none" stroke="#292116"
+                 stroke-width="1.4">
+                <path d="M12 9 L24 7 L24 52 L12 54Z"
+                      fill="#f9e5a6"/>
+                <path d="M24 7 L31 10 L31 53 L24 52Z"
+                      fill="#fff2c4"/>
+                <path d="M30 12 L42 14 L42 53 L30 53Z"
+                      fill="#f8e5a6"/>
+                <path d="M42 14 L49 17 L49 53 L42 53Z"
+                      fill="#fff2c4"/>
+                <path d="M48 19 L54 17 L61 47
+                         L55 53 L49 52Z"
+                      fill="#f8e5a6"/>
+                <g stroke-width="1">
+                    <path d="M13 17 L24 15 M13 22 L24 20
+                             M13 27 L24 25 M13 32 L24 30
+                             M13 37 L24 35"/>
+                    <path d="M30 20 L42 22 M30 25 L42 27
+                             M30 30 L42 32 M30 35 L42 37"/>
+                </g>
+            </svg>
+        </span>
+
+        <span class="label">Giáo Trình</span>
+
+        <span class="download" aria-hidden="true">
+            <svg viewBox="0 0 64 64"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path d="M26 5a3 3 0 0 1 6 0v25l8-8
+                         a3 3 0 0 1 4 4L35 41
+                         a5 5 0 0 1-7 0l-9-15
+                         a3 3 0 0 1 5-4l2 3V5z"/>
+                <path d="M9 37h8v11h30V37h8
+                         a3 3 0 0 1 3 3v14
+                         a4 4 0 0 1-4 4H10
+                         a4 4 0 0 1-4-4V40
+                         a3 3 0 0 1 3-3z"/>
+            </svg>
+        </span>
+    </a>
+
+    <!-- BÀI TẬP -->
+    <a class="menu-item"
+       href="https://drive.google.com/drive/folders/1OMuW5RclsqBsr5RD894mGZBCs4pudOy-?usp=drive_link"
+       target="_blank" rel="noopener noreferrer"
+       aria-label="Mở Bài Tập trên Google Drive">
+
+        <span class="corner tl"></span>
+        <span class="corner tr"></span>
+        <span class="corner bl"></span>
+        <span class="corner br"></span>
+
+        <span class="circle">
+            <svg viewBox="0 0 64 64"
+                 xmlns="http://www.w3.org/2000/svg"
+                 fill="#fff0b7" stroke="#292116"
+                 stroke-width="1.7">
+                <path d="M5 23 Q20 14 31 25
+                         L32 49 Q19 39 8 43Z"/>
+                <path d="M31 25 Q45 15 59 20
+                         L56 41 Q43 38 32 49Z"/>
+                <path d="M8 43 Q20 37 32 49
+                         Q44 37 56 41"
+                      fill="none" stroke-width="2.3"/>
+                <path d="M31 25 L32 49" fill="none"/>
+                <path d="M12 26 Q21 22 28 28
+                         M36 28 Q45 22 53 24"
+                      fill="none" stroke-width="1"/>
+            </svg>
+        </span>
+
+        <span class="label">Bài Tập</span>
+
+        <span class="download" aria-hidden="true">
+            <svg viewBox="0 0 64 64"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path d="M26 5a3 3 0 0 1 6 0v25l8-8
+                         a3 3 0 0 1 4 4L35 41
+                         a5 5 0 0 1-7 0l-9-15
+                         a3 3 0 0 1 5-4l2 3V5z"/>
+                <path d="M9 37h8v11h30V37h8
+                         a3 3 0 0 1 3 3v14
+                         a4 4 0 0 1-4 4H10
+                         a4 4 0 0 1-4-4V40
+                         a3 3 0 0 1 3-3z"/>
+            </svg>
+        </span>
+    </a>
+
+    <!-- GHI CHÚ -->
+    <a class="menu-item"
+       href="https://drive.google.com/drive/folders/1t9s7gX6IP7nKZWEkYK2AqTAPv9KQlMWi?usp=drive_link"
+       target="_blank" rel="noopener noreferrer"
+       aria-label="Mở Ghi Chú trên Google Drive">
+
+        <span class="corner tl"></span>
+        <span class="corner tr"></span>
+        <span class="corner bl"></span>
+        <span class="corner br"></span>
+
+        <span class="circle">
+            <svg viewBox="0 0 64 64"
+                 xmlns="http://www.w3.org/2000/svg"
+                 fill="none" stroke="#292116"
+                 stroke-width="1.7"
+                 stroke-linejoin="round">
+                <path d="M12 12 L43 9 L49 15
+                         L51 51 L15 54Z"
+                      fill="#fff0b5"/>
+                <path d="M43 9 L44 17 L51 15"/>
+                <g stroke-width="1.4">
+                    <path d="M18 23 L42 20
+                             M18 29 L43 26
+                             M19 35 L40 32
+                             M19 41 L37 38"/>
+                </g>
+                <path d="M43 41 L54 23 L59 27
+                         L48 46 L41 49Z"
+                      fill="#f4dc96"/>
+                <path d="M41 49 L43 41 L48 46"/>
+            </svg>
+        </span>
+
+        <span class="label">Ghi Chú</span>
+
+        <span class="download" aria-hidden="true">
+            <svg viewBox="0 0 64 64"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path d="M26 5a3 3 0 0 1 6 0v25l8-8
+                         a3 3 0 0 1 4 4L35 41
+                         a5 5 0 0 1-7 0l-9-15
+                         a3 3 0 0 1 5-4l2 3V5z"/>
+                <path d="M9 37h8v11h30V37h8
+                         a3 3 0 0 1 3 3v14
+                         a4 4 0 0 1-4 4H10
+                         a4 4 0 0 1-4-4V40
+                         a3 3 0 0 1 3-3z"/>
+            </svg>
+        </span>
+    </a>
+
+</nav>
+
+<p class="note">
+    Nhấn vào từng mục để mở thư mục Google Drive tương ứng.
+</p>
+
+</main>
+</body>
+</html>
